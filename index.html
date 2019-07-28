@@ -1,16 +1,83 @@
+
 <html>
-  <head>
-    <title>Carrito de compras</title>
-  </head>
+   <head>
+      <title>Carrito de compras</title>
+      
+      <!-- Librerias de Polymer -->
+      <base href="https://cdn.rawgit.com/download/polymer-cdn/2.6.0/lib/">
+      <script src="webcomponentsjs/webcomponents-loader.js"></script>
+      <link rel="import" href="iron-ajax/iron-ajax.html">
+      <link rel="import" href="polymer/polymer-element.html">
+   </head>
+   
+   <body>
+      <h1>Carrito de compras</h1>
+      <prueba-element></prueba-element>
+      <!-- img src="https://image.freepik.com/foto-gratis/fresa-aislada-fondo-blanco_1232-1974.jpg" / -->
 
-  <body>
+      <dom-module id='prueba-element'>
+         <template>
+            <h2>Frutas</h2>
+            
+            <table border=1>
+               <tr>  
+                  <template is='dom-repeat' items='{{frutas}}'>   
+                     <th> <button type="submit" on-click="agregarFruta"> <img src=[[item.ruta]] height="120" width="120"/> </button> </th>
+                  </template>
+               </tr> 
+            </table>
+            
+            <br>
+            <br>
 
-    <h1>Carrito de compras</h1>
+            <table border="1">
+              <tr>
+                 <th>Fruta</th>
+              </tr>
+              <tr>
+                  <td> 
+                    <template is='dom-repeat' items='[[arr]]'>                  
+                      [[item]] 
+                  </template>
+                </td> 
+              </tr> 
+            </table>
 
-    <table>
-      <tr></tr> 
-   </table>
+            <!-- button on-click="agregarFruta">Click</button -->
+            <br>
+            <p>[[arr.nombre]]</p>
+         </template>
+         
+         <script>
+	   class PruebaElemento extends Polymer.Element{
+              static get is(){return 'prueba-element';}
+              static get properties(){
+                 return {
+                   name: {},
+                   frutas: {
+                      type: Array,
+                      value: [
+                         {nombre:'Fresa', ruta:'https://st-listas.20minutos.es/images/2014-07/384094/4479373_249px.jpg?1518780769'},
+                         {nombre:'Naranja', ruta:'https://st-listas.20minutos.es/images/2014-07/384094/4479384_249px.jpg?1518780769'},
+                         {nombre:'Manzana', ruta:'https://st-listas.20minutos.es/images/2014-07/384094/4478853_249px.jpg?1518780769'},
+                         {nombre:'Piña', ruta:'https://st-listas.20minutos.es/images/2014-07/384094/4479370_249px.jpg?1518780769'}
+                      ]
+                   },
+                   arr: {
+                      type: Array,
+                      value: [{nombre:}]
+                   }
+                 };
+              }
 
-  </body>
+              agregarFruta(){
+                 console.log(this.push('arr', 'Fresa'));
+                 console.log(this.get('frutas.2.nombre'));  
+              }
+           }
 
+           customElements.define(PruebaElemento.is, PruebaElemento);
+         </script>
+      </dom-module>
+   </body>
 </html>
